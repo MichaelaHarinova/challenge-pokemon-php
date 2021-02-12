@@ -8,11 +8,15 @@
 <body>
 <?php
 $API = "https://pokeapi.co/api/v2/pokemon/";
-$pokeID = $_GET["poke-id"];
+
+if(isset($_GET["poke-id"])===false){
+    $pokeID =1;
+}else{
+    $pokeID = $_GET["poke-id"];
+}
 $jsonData = file_get_contents($API . $pokeID);//fetching
 $pokeDecode = json_decode($jsonData);
 $speciesURL = $pokeDecode->species->url;
-
 ?>
 <div id="pokedex">
 
@@ -79,28 +83,28 @@ $speciesURL = $pokeDecode->species->url;
             </div>
         </div>
         <p class="move" id="move1"><?php
-            if (isset($pokeDecode->moves[0]) === false) {
+            if (!isset($pokeDecode->moves[0])) {
               echo " - ";
              }else{
                echo  $pokeDecode->moves[0]->move->name;
         }?></p>
 
         <p class="move" id="move2"><?php
-            if (isset($pokeDecode->moves[1]) === false) {
+            if (!isset($pokeDecode->moves[1])) {
                 echo " - ";
             }else{
                 echo  $pokeDecode->moves[1]->move->name;
             }?></p>
 
         <p class="move" id="move3"><?php
-            if (isset($pokeDecode->moves[2]) === false) {
+            if (!isset($pokeDecode->moves[2])) {
                 echo " - ";
             }else{
                 echo  $pokeDecode->moves[2]->move->name;
             }?></p>
 
         <p class="move" id="move4"><?php
-            if (isset($pokeDecode->moves[3]) === false) {
+            if (!isset($pokeDecode->moves[3])) {
                 echo " - ";
             }else{
                 echo  $pokeDecode->moves[3]->move->name;
