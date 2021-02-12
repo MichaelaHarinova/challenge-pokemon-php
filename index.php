@@ -12,6 +12,7 @@ $pokeID = $_GET["poke-id"];
 $jsonData = file_get_contents($API . $pokeID);//fetching
 $pokeDecode = json_decode($jsonData);
 $speciesURL = $pokeDecode->species->url;
+
 ?>
 <div id="pokedex">
 
@@ -77,28 +78,44 @@ $speciesURL = $pokeDecode->species->url;
                 </h4>
             </div>
         </div>
-        <p class="move" id="move1">
-            <?php echo $pokeDecode->moves[0]->move->name ?>
-        </p>
-        <p class="move" id="move2">
-            <?php echo $pokeDecode->moves[1]->move->name ?>
-        </p>
-        <p class="move" id="move3">
-            <?php echo $pokeDecode->moves[2]->move->name ?>
-        </p>
-        <p class="move" id="move4"><?php echo $pokeDecode->moves[3]->move->name ?>
-        </p>
+        <p class="move" id="move1"><?php
+            if (isset($pokeDecode->moves[0]) === false) {
+              echo " - ";
+             }else{
+               echo  $pokeDecode->moves[0]->move->name;
+        }?></p>
+
+        <p class="move" id="move2"><?php
+            if (isset($pokeDecode->moves[1]) === false) {
+                echo " - ";
+            }else{
+                echo  $pokeDecode->moves[1]->move->name;
+            }?></p>
+
+        <p class="move" id="move3"><?php
+            if (isset($pokeDecode->moves[2]) === false) {
+                echo " - ";
+            }else{
+                echo  $pokeDecode->moves[2]->move->name;
+            }?></p>
+
+        <p class="move" id="move4"><?php
+            if (isset($pokeDecode->moves[3]) === false) {
+                echo " - ";
+            }else{
+                echo  $pokeDecode->moves[3]->move->name;
+            }?></p>
+
         <div id="prevEvo">
             <?php
             $jsonData = file_get_contents($speciesURL);//fetching
             $prevEvoDecode = json_decode($jsonData);
 
-
-
             if ($prevEvoDecode->evolves_from_species === null) {
                 $prevEvoPic = "";
                 $prevEvoName = "";
                 $noDisplay= "display:none";
+
             } else {
                 $prevEvoName = $prevEvoDecode->evolves_from_species->name;
                 $jsonData = file_get_contents($API . $prevEvoName);// fetching pre evolution data
