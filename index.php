@@ -82,14 +82,27 @@ $speciesURL = $pokeDecode->species->url;
                 </h4>
             </div>
         </div>
-        <p class="move" id="move1"><?php
-            if (!isset($pokeDecode->moves[0])) {
+
+        <?php shuffle($pokeDecode->moves);
+        foreach(array_slice($pokeDecode->moves, 0 ,4) AS $index=> $value){
+
+            echo '<p class="move" id="move'.($index+1).'">'. $value->move->name .'</p>';
+        }?>
+
+
+             <?php /*
+           if (!isset($pokeDecode->moves[0])) {
               echo " - ";
              }else{
                echo  $pokeDecode->moves[0]->move->name;
         }?></p>
 
-        <p class="move" id="move2"><?php
+        <p class="move" id="move2">
+            <?php shuffle($pokeDecode->moves);
+            foreach(array_slice($pokeDecode->moves, 0 ,4) AS $value){
+                echo "<p>".$value->move->name ."</p>" ;
+            }?>
+            <?php
             if (!isset($pokeDecode->moves[1])) {
                 echo " - ";
             }else{
@@ -108,7 +121,7 @@ $speciesURL = $pokeDecode->species->url;
                 echo " - ";
             }else{
                 echo  $pokeDecode->moves[3]->move->name;
-            }?></p>
+            }*/?>
 
         <div id="prevEvo">
             <?php
